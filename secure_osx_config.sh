@@ -95,16 +95,20 @@ echo "Installing cask..."
 brew install caskroom/cask/brew-cask
 
 CASKS=(
-    colluquy
-    dropbox
+    1password
+    amazon-workspaces
+    brave
+    db-browser-for-sqlite
+    dd-utility
+    encryptme
     flux
     google-chrome
-    google-drive
     gpgtools
     screen
     skype
     slack
     spectacle
+    sublime-text
     vagrant
     virtualbox
     vlc
