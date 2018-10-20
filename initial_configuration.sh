@@ -130,11 +130,3 @@ echo "Creating folder structure..."
 [[ ! -d Workspace ]] && mkdir Workspace
 
 echo "Bootstrapping complete"
-
-#------END OF SCRIPT-------
-#MANUAL STEPS THAT REQUIRE ADDITIONAL USER INPUT
-#DO NOT UNCOMMENT THIS SECTION!!!
-
-#Enable Disk Encryption
-#fdesetup enable
-
