@@ -107,6 +107,9 @@ FONTS=(
 )
 brew cask install ${FONTS[@]}
 
+#Install Pip
+sudo python -m ensurepip
+
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
     ipython
