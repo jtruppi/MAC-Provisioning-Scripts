@@ -57,6 +57,7 @@ PACKAGES=(
     pkg-config
     python
     python3
+    jupyter
     rename
     terminal-notifier
     tmux
