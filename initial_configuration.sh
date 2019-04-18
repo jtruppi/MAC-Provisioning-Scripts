@@ -85,6 +85,7 @@ CASKS=(
     db-browser-for-sqlite
     dd-utility
     encryptme
+    evernote
     flux
     google-chrome
     gpgtools
@@ -114,6 +115,7 @@ sudo python -m ensurepip
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
     ipython
+    jupyter
     virtualenv
     virtualenvwrapper
 )
