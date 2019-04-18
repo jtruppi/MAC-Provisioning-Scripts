@@ -49,6 +49,7 @@ PACKAGES=(
     gawk
     git
     gimp
+    htop
     hub
     jq
     nmap
@@ -63,6 +64,7 @@ PACKAGES=(
     tmux
     tree
     vim
+    watch
     wget
     wireshark
 )
@@ -86,9 +88,12 @@ CASKS=(
     dd-utility
     encryptme
     evernote
-    flux
     google-chrome
     gpgtools
+    istumbler
+    knockknock
+    licecap
+    postman
     screen
     skype
     slack
@@ -115,7 +120,6 @@ sudo python -m ensurepip
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
     ipython
-    jupyter
     virtualenv
     virtualenvwrapper
 )
