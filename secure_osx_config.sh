@@ -1,6 +1,28 @@
 #!/usr/bin/sh
 # 
 # Secure configuration script for OSX
+# Version Check
+#MACVER=$(sw_vers)
+MACVER=$(sw_vers | grep "ProductVersion:" | awk '{print $2}' | awk -F"." '{print $1"."$2}')
+
+if [ $MACVER=="10.14" ]
+then
+	echo "Mojave"
+elif [ $MACVER=="10.13" ]
+then
+	echo "High Sierra"
+elif [ $MACVER=="10.12" ]
+then
+	echo "Sierra"
+elif [ $MACVER=="10.11" ]
+then
+	echo "El Capitan"
+elif [ $MACVER=="10.10" ]
+then
+	echo "Yosemite"
+else
+	echo "Below 10.10"
+fi
 
 ####SPEED
 # Disable animations when opening and closing windows
@@ -49,6 +71,19 @@ systemsetup -setremotelogin off
 spctl --master-enable
 
 echo "Secure configuration complete"
+
+##CONFIRMED FOR 10.14 CIS Benchmarks
+#Enable Automatic Updates
+defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticallyInstallMacOSUpdates -int 1
+
+#Enable App updates install
+defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool TRUE
+
+#Turn Bluetooth off by default
+defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
+
+#Eanble Find My Mac
+defaults write /Library/Preferences/com.apple.FindMyMac FMMEnabled -int 1
 
 #------END OF SCRIPT-------
 #MANUAL STEPS THAT REQUIRE ADDITIONAL USER INPUT
