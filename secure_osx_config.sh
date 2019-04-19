@@ -90,6 +90,12 @@ defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHis
 defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist ThirdPartyDataSubmit -int 0
 
 
+####AUDITING
+# Update Auditd flags (requires restart)
+sed -i '''' 's/flags.*/flags:lo,ad,fd,fm,-all/g' /etc/security/audit_control
+sed -i '''' 's/expire-after.*/expire-after:1G/g' /etc/security/audit_control
+
+
 ####SECURITY
 # Require password as soon as screensaver or sleep mode starts
 defaults write com.apple.screensaver askForPassword -int 1
@@ -113,6 +119,9 @@ defaults write com.apple.FindMyMac FMMEnabled -int 1
 # Enable Gatekeeper for application code signing installs
 spctl --master-enable
 
+# Disable NFS
+nfsd disable
+
 # Disable remote Apple events
 systemsetup -setremoteappleevents off
 
@@ -128,6 +137,12 @@ defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 # Enable firewall stealthmode (do not respond to ICMP)
 defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+# Enable firewall logging
+/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+
+# Enable secure keyboard entry in Terminal App
+defaults write com.apple.Terminal SecureKeyboardEntry -int 1
 
 # Turn remote login (SSH) OFF or ON
 systemsetup -setremotelogin off
