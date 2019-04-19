@@ -1,9 +1,13 @@
 #!/usr/bin/sh
 # 
-# Secure configuration script for OSX
+# Secure configuration script for OSX made by github.com/jtruppi 4/19/19
+#
 
-# Set default user
+###---EDIT THIS SECTION BEFORE YOU START---###
+# Set default user for admin permissions
 USER="user"
+###---END OF EDIT SECTION---###
+
 # Version Check
 MACVER=$(sw_vers | grep "ProductVersion:" | awk '{print $2}' | awk -F"." '{print $1"."$2}')
 NOCONFIG="UNKNOWN CONFIG FOR"
@@ -75,9 +79,6 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-# Disable crash reporter
-#defaults write com.apple.CrashReporter DialogType none
-
 
 ####UI
 # Show filename extensions by default
@@ -85,24 +86,43 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 
 ####PRIVACY
-# Disable Apple analytics
+# Disable Apple analytics (CrashReporter)
 defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit -int 0
 defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist ThirdPartyDataSubmit -int 0
 
 
 ####AUDITING
 # Update Auditd flags (requires restart)
-sed -i '''' 's/flags.*/flags:lo,ad,fd,fm,-all/g' /etc/security/audit_control
-sed -i '''' 's/expire-after.*/expire-after:1G/g' /etc/security/audit_control
+sed -i '' 's/flags.*/flags:lo,ad,fd,fm,-all/g' /etc/security/audit_control
+sed -i '' 's/expire-after.*/expire-after:1G/g' /etc/security/audit_control
 
 
 ####SECURITY
+# Add USER to admin group and therfore Sudoers file
+#sed -i '' "s/%admin.*/$(printf '\n')$USER$(printf '\t\t')ALL = (ALL) ALL/g" /etc/sudoers
+dseditgroup -o edit -a $USER -t user admin
+
+# Disable GUEST user
+defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool FALSE
+
+# Disable GUEST access with AFS
+defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool FALSE
+
+# Disable GUEST access with SMB
+defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool FALSE
+
 # Require password as soon as screensaver or sleep mode starts
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
+# Force login window to show full name and not username
+defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool TRUE
+
 # Enable screensaver sleep 10 min
 defaults -currentHost write com.apple.screensaver idleTime -int 600
+
+# Diable password hint
+defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 0
 
 # Enable Automatic Updates
 defaults write com.apple.SoftwareUpdate.plist AutomaticallyInstallMacOSUpdates -int 1
@@ -144,10 +164,15 @@ defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 # Enable secure keyboard entry in Terminal App
 defaults write com.apple.Terminal SecureKeyboardEntry -int 1
 
+# Disable auto-login
+defaults delete /Library/Preferences/com.apple.loginwindow autoLoginUser
+
 # Turn remote login (SSH) OFF or ON
 systemsetup -setremotelogin off
 
 echo "SECURE CONFIGURATION COMPLETE"
+
+
 
 #------END OF SCRIPT-------
 #MANUAL STEPS THAT REQUIRE ADDITIONAL USER INPUT
@@ -167,5 +192,14 @@ echo "SECURE CONFIGURATION COMPLETE"
 
 # List Apps using location services
 #sudo defaults read /var/db/locationd/clients.plist
+
+# Find any world writeable apps
+#sudo find /Applications -iname "*.app" -type d -perm -2 -ls
+
+# Find any /System world writeable folders
+#sudo find /System -type d -perm -2 -ls | grep -v "Public/Drop Box"
+
+#Find any /Library world writeable folders
+#sudo find /Library -type d -perm -2 -ls | grep -v Caches
 
 
