@@ -103,20 +103,20 @@ sed -i '' 's/expire-after.*/expire-after:1G/g' /etc/security/audit_control
 dseditgroup -o edit -a $USER -t user admin
 
 # Disable GUEST user
-defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool FALSE
+defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 
 # Disable GUEST access with AFS
-defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool FALSE
+defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool false
 
 # Disable GUEST access with SMB
-defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool FALSE
+defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool false
 
 # Require password as soon as screensaver or sleep mode starts
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Force login window to show full name and not username
-defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool TRUE
+defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool true
 
 # Enable screensaver sleep 10 min
 defaults -currentHost write com.apple.screensaver idleTime -int 600
@@ -128,7 +128,7 @@ defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 
 defaults write com.apple.SoftwareUpdate.plist AutomaticallyInstallMacOSUpdates -int 1
 
 # Enable App updates install
-defaults write com.apple.commerce AutoUpdate -bool TRUE
+defaults write com.apple.commerce AutoUpdate -bool true
 
 # Disable Bluetooth by default
 defaults write com.apple.Bluetooth ControllerPowerState -int 0
@@ -142,14 +142,17 @@ spctl --master-enable
 # Disable NFS
 nfsd disable
 
+# Disable Safari auto-open safe files
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
 # Disable remote Apple events
 systemsetup -setremoteappleevents off
 
 # Disable Apple Screen Sharing
-defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist com.apple.screensharing -dict Disabled -bool TRUE
+defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist com.apple.screensharing -dict Disabled -bool true
 
 # Disable Apache Server
-defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist org.apache.httpd -dict Disabled -bool TRUE
+defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist org.apache.httpd -dict Disabled -bool true
 
 # Enable firewall for specific services
 defaults write /Library/Preferences/com.apple.alf globalstate -int 1
