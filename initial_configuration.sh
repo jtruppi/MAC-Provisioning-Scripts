@@ -78,12 +78,12 @@ echo "Cleaning up..."
 brew cleanup
 
 echo "Installing cask..."
-brew install caskroom/cask/brew-cask
+brew install caskroom/cask
 
 CASKS=(
     1password
     amazon-workspaces
-    brave
+    brave-browser
     db-browser-for-sqlite
     dd-utility
     encryptme
