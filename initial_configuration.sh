@@ -93,6 +93,7 @@ CASKS=(
     knockknock
     licecap
     postman
+    skitch
     skype
     slack
     sublime-text
