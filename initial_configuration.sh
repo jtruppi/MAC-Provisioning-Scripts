@@ -93,7 +93,6 @@ CASKS=(
     knockknock
     licecap
     postman
-    screen
     skype
     slack
     sublime-text
@@ -134,7 +133,7 @@ sudo gem install ${RUBY_GEMS[@]}
 echo "Installing global npm packages..."
 npm install marked -g
 
-echo "Creating folder structure..."
-[[ ! -d Workspace ]] && mkdir Workspace
+#echo "Creating folder structure..."
+#[[ ! -d Workspace ]] && mkdir Workspace
 
 echo "Bootstrapping complete"
