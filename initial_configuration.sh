@@ -32,7 +32,7 @@ brew install gnu-sed
 brew install gnu-tar
 brew install gnu-indent
 brew install gnu-which
-brew install gnu-grep
+brew install grep
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
@@ -88,7 +88,7 @@ CASKS=(
     evernote
     gimp
     google-chrome
-    gpgtools
+    gpg-suite
     istumbler
     knockknock
     licecap
