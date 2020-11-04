@@ -7,6 +7,7 @@
 # - If installing full Xcode, it's better to install that first from the app
 #   store before running the bootstrap script. Otherwise, Homebrew can't access
 #   the Xcode libraries as the agreement hasn't been accepted yet.
+# - You don't need to run as root or sudo. You will be prompted in the script. 
 #
 # Reading:
 #
@@ -20,7 +21,7 @@ echo "Starting bootstrapping"
 # Check for Homebrew, install if we don't have it
 if test ! $(which brew); then
     echo "Installing homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # Update homebrew recipes
@@ -114,6 +115,9 @@ brew cask install ${FONTS[@]}
 
 #Install Pip
 sudo python -m ensurepip
+
+#Upgrade Pip
+sudo pip install --upgrade pip
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
