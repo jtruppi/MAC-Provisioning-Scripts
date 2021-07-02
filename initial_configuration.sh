@@ -66,20 +66,6 @@ PACKAGES=(
     watch
     wget
     wireshark
-)
-
-echo "Installing packages..."
-brew install ${PACKAGES[@]}
-
-brew install curl-openssl
-
-echo "Cleaning up..."
-brew cleanup
-
-echo "Installing cask..."
-brew install cask
-
-CASKS=(
     1password
     amazon-workspaces
     brave-browser
@@ -102,16 +88,21 @@ CASKS=(
     vlc
 )
 
-echo "Installing cask apps..."
-brew cask install ${CASKS[@]}
+echo "Installing packages..."
+brew install ${PACKAGES[@]}
 
-echo "Installing fonts..."
-brew tap caskroom/fonts
+brew install curl-openssl
+
+echo "Cleaning up..."
+brew cleanup
+
+brew tap homebrew/cask-fonts
 FONTS=(
+    svn
     font-roboto
     font-clear-sans
 )
-brew cask install ${FONTS[@]}
+brew install ${FONTS[@]}
 
 #Install Pip
 sudo python -m ensurepip
